@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "firstname": "harry",
+  "lastname": "sonnefort",
+  "email": "harysonoport@gmail.com",
+  "location":  "23, rue Jules Vallès 69100 Villeurbanne",
+  "phone": "0607080910",
+  "avatar_url": "https://cdn.pixabay.com/photo/2021/09/25/19/06/witch-6655604_1280.png",
+  "state": "activate",
+  "type": "admin"
+}

@@ -20,6 +20,7 @@ abstract class Routes {
   static const ALERT_NOTIFICATION = _Paths.ALERT_NOTIFICATION;
   static const STATISTIQUE = _Paths.STATISTIQUE;
   static const ADD_PUBLICITY = _Paths.ADD_PUBLICITY;
+  static const OTP = _Paths.OTP;
 }
 
 abstract class _Paths {
@@ -39,4 +40,5 @@ abstract class _Paths {
   static const ALERT_NOTIFICATION = '/alert-notification';
   static const STATISTIQUE = '/statistique';
   static const ADD_PUBLICITY = '/add-publicity';
+  static const OTP = '/otp';
 }

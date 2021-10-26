@@ -22,6 +22,8 @@ import 'package:event_loc/app/modules/link_to_member/bindings/link_to_member_bin
 import 'package:event_loc/app/modules/link_to_member/views/link_to_member_view.dart';
 import 'package:event_loc/app/modules/login/bindings/login_binding.dart';
 import 'package:event_loc/app/modules/login/views/login_view.dart';
+import 'package:event_loc/app/modules/otp/bindings/otp_binding.dart';
+import 'package:event_loc/app/modules/otp/views/otp_view.dart';
 import 'package:event_loc/app/modules/profil/bindings/profil_binding.dart';
 import 'package:event_loc/app/modules/profil/views/profil_view.dart';
 import 'package:event_loc/app/modules/publicity/bindings/publicity_binding.dart';
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.ADD_PUBLICITY,
       page: () => AddPublicityView(),
       binding: AddPublicityBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP,
+      page: () => OtpView(),
+      binding: OtpBinding(),
     ),
   ];
 }

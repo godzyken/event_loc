@@ -1,14 +1,12 @@
 import 'package:event_loc/app/modules/login/controllers/login_controller.dart';
-import 'package:event_loc/app/modules/profil/controllers/profil_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxfire/getxfire.dart';
 
-class HomeController extends GetxController {
-  //TODO: Implement HomeController
-  final auth = GetxFire.auth;
+class OtpController extends GetxController {
+  //TODO: Implement OtpController
+
   final loginC = LoginController();
-  final profileC = ProfilController();
-  User? get user => auth.currentUser;
+  final otp = TextEditingController();
 
   final count = 0.obs;
   @override
