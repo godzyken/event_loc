@@ -10,7 +10,7 @@ import 'app/routes/app_pages.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetxFire.init(name: 'event_loc', options: firebaseOptions);
-  SafetynetAttestation.googlePlayServicesAvailability();
+  await SafetynetAttestation.googlePlayServicesAvailability().then((value) => print('$value'));
 
   runApp(
     GetMaterialApp(

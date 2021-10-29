@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+import 'package:getxfire/getxfire.dart';
 
 class AuthController extends GetxController {
   //TODO: Implement AuthController
 
-  final count = 0.obs;
+  final auth = GetxFire.auth;
+
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +18,5 @@ class AuthController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
 }

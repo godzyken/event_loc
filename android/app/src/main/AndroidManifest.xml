@@ -2,7 +2,9 @@
     package="com.godzy.event_loc">
    <application
         android:label="event_loc"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+       android:fullBackupOnly="true"
+       android:allowBackup="true">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
