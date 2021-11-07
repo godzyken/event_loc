@@ -14,6 +14,7 @@ class RxUserModel {
   final type = 'admin'.obs;
 }
 
+
 class UserModel {
   UserModel(
       {id,

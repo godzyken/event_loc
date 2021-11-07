@@ -132,7 +132,6 @@ class SignInController extends GetxController {
         email: email!,
         password: password!,
         isSuccessDialog: true,
-        isErrorDialog: true,
         onSuccess: (userCredential) async {
           success.isTrue;
           email = userCredential?.user!.email;
@@ -166,18 +165,18 @@ class SignInController extends GetxController {
             duration: const Duration(seconds: 12),
           );
 
-          Get.toNamed('/home', arguments: Get.arguments);
+          Get.offAllNamed('/home');
         },
         onError: (code, msg) {
-          print('yoooo: $code, $msg');
+          success.isFalse;
 
           if (code == 'unknown') {
             GetxFire.openDialog.messageError(
-              msg!,
-              title: code,
+              'select and complete a form before submit',
+              title: 'Forms is empty',
               duration: const Duration(seconds: 12),
             );
-            Get.back();
+
           }
 
           if (code == 'email-already-in-use') {

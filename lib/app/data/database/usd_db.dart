@@ -63,6 +63,10 @@ class UserDb {
         collection: collection,
         id: id,
     );
+    if (userInfo.id == id) {
+      print('current is $id,\nuser storage is ${userInfo.id}');
+      return true;
+    }
     var obj = UserModel.fromJson(userInfo.get(Object));
 
     return obj;

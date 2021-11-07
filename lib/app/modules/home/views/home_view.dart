@@ -1,5 +1,4 @@
 import 'package:event_loc/app/modules/login/views/login_view.dart';
-import 'package:event_loc/app/modules/profil/views/profil_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -22,17 +21,22 @@ class HomeView extends GetView<HomeController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Obx(() {
-                    return Text(
-                      'Hello boss are you log ?: ${_.user!.email} ',
-                      style: const TextStyle(
-                          color: Colors.redAccent,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22),
-                    );
-                  }),
+                  Get.parameters['user'] != null
+                      ? Text(
+                    'Hello boss are you log ?: ${Get.parameters['user']} ',
+                    style: const TextStyle(
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22))
+                        : const Text(
+                  'please sign in !',
+                    style: TextStyle(
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22),
+                  ),
                   TextButton(
-                      onPressed: () => Get.to(() => ProfilView()),
+                      onPressed: () => Get.offAndToNamed('/auth'),
                       child: const Icon(
                         Icons.person_add_alt,
                         size: 50,

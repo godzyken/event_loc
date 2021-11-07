@@ -31,7 +31,7 @@ abstract class _Paths {
   static const SEARCH_EVENT = '/search-event';
   static const EVENT = '/event';
   static const LINK_TO_MEMBER = '/link-to-member';
-  static const PROFIL = '/profil';
+  static const PROFIL = '/profil/&id';
   static const ADMINISTRATION = '/administration';
   static const ADD_EVENT = '/add-event';
   static const ADD_ARTICLE = '/add-article';

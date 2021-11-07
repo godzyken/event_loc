@@ -174,10 +174,10 @@ class SignInView extends GetView<SignInController> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   if (_.phone.value.text != '') {
-                                    _.verifyPhone(_.phone.value.text);
+                                    await _.verifyPhone(_.phone.value.text);
                                     Get.to(() => OtpView());
                                   } else {
-                                    if (_.registerWithEmailPassword(
+                                    if (await _.registerWithEmailPassword(
                                         _.email.value.text,
                                         _.password.value.text) != false) {
                                       Get.to(() => HomeView());

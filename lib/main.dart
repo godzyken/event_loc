@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:getxfire/getxfire.dart';
+import 'package:reflectable/reflectable.dart';
 import 'package:safetynet_attestation/safetynet_attestation.dart';
 
 import 'app/firebase_options.dart';
@@ -17,6 +18,7 @@ Future<void> main() async {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      smartManagement: SmartManagement.full,
       debugShowCheckedModeBanner: false,
     ),
   );
