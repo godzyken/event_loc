@@ -4,10 +4,9 @@ import 'package:event_loc/app/modules/auth/controllers/auth_controller.dart';
 import 'package:event_loc/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:getxfire/getxfire.dart';
-
-import '';
 
 class ProfilController extends GetxController {
   final _userModel = u.UserModel().obs;
@@ -15,12 +14,14 @@ class ProfilController extends GetxController {
   final scrollerC = ScrollController();
   List<UserModel?> users = [];
   UserModelApi? api;
+  FlutterUserApi? flutterUserApi;
 
   u.UserModel? get user => _userModel.value;
 
   set user(u.UserModel? value) => _userModel.value = value!;
 
   final formKey = GlobalKey<FormState>();
+
   get _formResult => formKey.currentState;
 
   final count = 0.obs;
@@ -39,10 +40,15 @@ class ProfilController extends GetxController {
 
   @override
   void onInit() {
-    UserModelApi.setup(api);
+    UserModelApi.codec;
     SchedulerBinding.instance?.addPostFrameCallback((_) => onReady());
+    FlutterUserApi.setup(FlutterUserApiHandler(
+        (user) {
+          this.user = user as u.UserModel?;
+        }
+    ));
+
     super.onInit();
-;
   }
 
   @override
@@ -52,7 +58,6 @@ class ProfilController extends GetxController {
 
   @override
   void update([List<Object>? ids, bool condition = true]) {
-
     // if (!condition) {
     //   return;
     // }
@@ -94,7 +99,7 @@ class ProfilController extends GetxController {
   getUser() async {
     user = await Get.arguments['user'];
     print('Boss is $user');
-    if(user!.email == email.value.text) {
+    if (user!.email == email.value.text) {
       return await db.showUser();
     } else {
       return false;
@@ -102,7 +107,7 @@ class ProfilController extends GetxController {
   }
 
   String? isFirstName(String? value) {
-    if(!GetUtils.isUsername(value!) || value == ''){
+    if (!GetUtils.isUsername(value!) || value == '') {
       return 'Username format not valid';
     }
     return 'Username format ok!';
@@ -114,11 +119,10 @@ class ProfilController extends GetxController {
     });
 
     _userModel.call();
-
   }
 
   String? islastName(String? value) {
-    if(!GetUtils.isUsername(value!) || value == ''){
+    if (!GetUtils.isUsername(value!) || value == '') {
       return 'User lastname format not valid';
     }
     return 'User lastname format ok!';
@@ -130,12 +134,10 @@ class ProfilController extends GetxController {
     });
 
     _userModel.call();
-
   }
 
-
   String? isEmail(String? value) {
-    if(!GetUtils.isEmail(value!) || value == ''){
+    if (!GetUtils.isEmail(value!) || value == '') {
       return 'Email format not valid';
     }
     return 'Email format ok!';
@@ -147,12 +149,10 @@ class ProfilController extends GetxController {
     });
 
     _userModel.call();
-
   }
 
-
   String? isPhone(String? value) {
-    if(!GetUtils.isPhoneNumber(value!) || value == ''){
+    if (!GetUtils.isPhoneNumber(value!) || value == '') {
       return 'PhoneNumber format not valid';
     }
     return 'PhoneNumber format ok!';
@@ -164,12 +164,10 @@ class ProfilController extends GetxController {
     });
 
     _userModel.call();
-
   }
 
-
   String? isAvatarUrl(String? value) {
-    if(!GetUtils.isURL(value!) || value == ''){
+    if (!GetUtils.isURL(value!) || value == '') {
       return 'AvatarUrl format not valid';
     }
     return 'AvatarUrl format ok!';
@@ -183,9 +181,8 @@ class ProfilController extends GetxController {
     _userModel.call();
   }
 
-
   String? isLocation(String? value) {
-    if(!GetUtils.isTxt(value!) || value == ''){
+    if (!GetUtils.isTxt(value!) || value == '') {
       return 'street address format not valid';
     }
     return 'street address format ok!';
@@ -197,18 +194,50 @@ class ProfilController extends GetxController {
     });
 
     _userModel.call();
-
   }
 
   Future getUserId() async {
-    final number = this.users.length +1;
+    final number = this.users.length + 1;
 
-    final List<UserModel?> users = (UserModelApi.codec.encodeMessage(number)) as List<UserModel?>;
+    final List<UserModel?> users =
+        (UserModelApi.codec.encodeMessage(number)) as List<UserModel?>;
     final newUsers = List<UserModel>.from(users);
     this.users.addAll(newUsers);
     update();
-
   }
 
+  Future deleteUserId(String? id) async {
+    BinaryMessenger? message;
+
+    if (GetUtils.isCurrency(id!)) {
+      await api!.cancel();
+    } else {
+      final List<UserModel?> users =
+          (UserModelApi.codec.encodeMessage(message)) as List<UserModel?>;
+      for (var u in users) {
+        if (u!.id == user!.id ) {
+          this.users.removeWhere((user) => id == u.id);
+        }
+      }
+    }
+
+    update();
+  }
 }
 
+typedef UserReceived = void Function(UserModel? userModel);
+
+class FlutterUserApiHandler extends FlutterUserApi {
+  FlutterUserApiHandler(this.callback);
+
+  final UserReceived? callback;
+
+  @override
+  void displayUserDetails(UserModel? userModel) {
+   assert(
+   userModel != null,
+   'Non-null user expected from flutterUserApi.displayUserProfile call.'
+   );
+   callback!(userModel);
+  }
+}

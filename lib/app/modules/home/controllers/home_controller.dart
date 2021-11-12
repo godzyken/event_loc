@@ -2,14 +2,13 @@ import 'dart:ffi';
 
 import 'package:event_loc/app/modules/login/controllers/login_controller.dart';
 import 'package:event_loc/app/modules/profil/controllers/profil_controller.dart';
-import 'package:event_loc/user.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:getxfire/getxfire.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
-  final MethodChannel? platform = MethodChannel('godzy.flutter.dev/home');
+  final MethodChannel? platform = const MethodChannel('godzy.flutter.dev/home');
   String? _homeLevel = 'unknown home state';
 
   final auth = GetxFire.auth;

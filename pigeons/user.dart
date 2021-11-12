@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:pigeon/pigeon.dart';
-import 'package:reflectable/capability.dart';
 
 
 class UserModel {
@@ -10,16 +8,23 @@ class UserModel {
   String? email;
   String? location;
   String? phone;
-  String? avatarUrl;
+  AvatarUrl? avatarUrl;
   String? state;
   String? type;
 }
 
-class Reply {
-  UserModel? userModel;
+class AvatarUrl {
+  String? url;
 }
 
 @FlutterApi()
+abstract class FlutterUserApi {
+  void displayUserDetails(UserModel userModel);
+}
+
+@HostApi()
 abstract class UserModelApi {
   List<UserModel?> getUser(String keyword);
+  void cancel();
+  void finishEditingProfile(UserModel userModel);
 }
